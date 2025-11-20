@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '17' ]
+        java: [ '25' ]
 
     steps:
       - uses: actions/checkout@v4
@@ -72,7 +72,7 @@ jobs:
         run: scp -o StrictHostKeyChecking=no target/spring-petclinic-*.jar ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/
 
       - name: Ensure Java is installed on remote
-        run: ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo apt update && sudo apt install -y openjdk-17-jre"
+        run: ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo apt update && sudo apt install -y openjdk-25-jre"
 
       - name: Start Spring PetClinic
         run: ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "nohup java -jar /home/ubuntu/spring-petclinic-*.jar > app.log 2>&1 &"
